@@ -1,0 +1,38 @@
+Things To Do:
+
+1.Initialize the Pygame library.
+  Create a window to represent the pool table.
+
+
+2.Draw the pool table background.
+  Represent the pool table boundaries.
+
+
+3.Define the ball object with attributes like position, velocity, and radius.
+3.1.Implement basic physics for ball movement, including collision detection.
+3.2.Handle friction and ball deceleration over time.
+
+
+4.Allow user input to control the direction and power of the cue stick.
+4.1.Translate user input into a force applied to the cue ball.
+
+
+5.Implement collision detection and response between balls and with the walls.
+
+
+6.Implement a scoring system for keeping track of points.
+  Decide how the game will be won or lost.
+
+
+7.Implement a game loop to continuously update the game state and handle user input.
+
+
+8.Test the game thoroughly to identify and fix bugs.
+  Ensure that the physics and collisions behave as expected.
+
+Polishing:
+
+Add graphics for the pool balls and cue stick.
+Animate the balls' movement and collisions.
+Add any additional features or refinements to enhance the user experience.
+Optimize code and improve performance if necessary.
