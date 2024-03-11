@@ -8,23 +8,21 @@ p.init()
 
 grav = 1
 friction = 1
+time = [i for i in range(100)]
+print(len(time))
 class Ball():
     def __init__(self):
         self.x = 200
         self.y = 200
-        self.newX= 300
-        self.newY = 300
-        self.vel = 0
-        self.accel = 1
+        self.distanceX= 1.0
+        self.distanceY = 1.0
     def draw(self):
         p.draw.circle(display,(255,255,255),(int(self.x),int(self.y)),10)
     def move(self):
-        self.vel += self.accel 
-        self.y += self.vel
-        self.x += self.vel
-        print(self.vel)
-        if (self.x >= self.newX and self.y >= self.newY):
-            self.vel = -self.vel
+        self.y += self.distanceX
+        self.x += self.distanceY
+
+
 w,h=500,500
 display = p.display.set_mode([w,h])
 p.display.set_caption("Collision Test")
@@ -43,6 +41,7 @@ clock = p.time.Clock()
 
 #Ball 
 ball = Ball()
+i=0
 while(status):
     display.fill([0,0,0])
     mx,my=p.mouse.get_pos()
@@ -68,10 +67,11 @@ while(status):
     xy=font.render(str(p.mouse.get_pos()),True,(255,255,255))
     hitTxt=font.render(str(hit),True,(255,255,255))
 
-    ball.move()
+    if(i < len(time)):
+        ball.move()
+        i += 1
     p.draw.line(display,(255,255,255),(0,400),(1000,400),10)
     ball.draw()
-
     display.blit(xy,[5,h-15])
     display.blit(hitTxt,[w-30,h-15])
 
