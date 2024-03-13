@@ -29,6 +29,7 @@ class Ball():
         self.angleHit = angleHit
         self.hitForce = hitForce
 
+        self.index = 0
         self.moving = True
 
         self.cueDistance = 0.1
@@ -103,16 +104,16 @@ def get_var_name(var):
         if value is var:
             return name
 
-def movement(ball,counter):
-    if(counter < ball.totalMilliseconds):
-        X,Y,XR,YR = ball.whereBallGo(ball.totalVelocity[counter])
+def movement(ball):
+    if(ball.index < ball.totalMilliseconds):
+        X,Y,XR,YR = ball.whereBallGo(ball.totalVelocity[ball.index])
         #print("X:" + str(X) + " | Y:" + str(Y) + " | XR:" + str(XR) + " | YR:" + str(YR))
         ball.move(X,Y,XR,YR)
-        counter += 1
+        ball.index += 1
     elif (ball.moving):
         ball.moving = False
         print(f"The {get_var_name(ball)} has Stopped!")
-    return counter
+
 grav = 1
 friction = 1
 
@@ -158,9 +159,9 @@ while(status):
     
     collsionDetector(balls)
 
-    i = movement(ball1,i)
-    j = movement(ball2,j)
-    k = movement(ball3,k)
+    movement(ball1)
+    movement(ball2)
+    movement(ball3)
     
     ball1.draw()
     ball2.draw()
