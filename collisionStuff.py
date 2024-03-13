@@ -38,8 +38,8 @@ class Ball():
         p.draw.circle(display,(255,255,255),(int(self.x),int(self.y)),10)
         
     def move(self, X, Y, XR, YR):
-        self.y += (X * XR)
-        self.x += (Y * YR)
+        self.x += (X * XR)
+        self.y += (Y * YR)
 
     def whereBallGo(self,v):
         #Changes where ball goes according to angle
