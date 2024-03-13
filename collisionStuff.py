@@ -20,9 +20,9 @@ def triangleY(v,theta):
     return(X,Y)    
 
 class Ball():
-    def __init__(self):
-        self.x = 200
-        self.y = 200
+    def __init__(self,x,y,hitForce,angleHit):
+        self.x = x
+        self.y = y
         
         self.totalMilliseconds = 0
         self.totalVelocity = []
@@ -93,7 +93,10 @@ class Ball():
         self.totalMilliseconds = len(milliseconds)
         self.totalVelocity = [velocity-(velocity*((i+1)/self.totalMilliseconds)) for i in range(self.totalMilliseconds)]
     
-
+def collsionDetector(balls):
+    for ball in balls:
+        if any(ball != ball1 and (m.sqrt((ball.x-ball1.x)**2+(ball.y-ball1.y)**2)<=10+10) for ball1 in balls):
+            print("COLLISION DETECTION")
 grav = 1
 friction = 1
 
@@ -157,6 +160,7 @@ while(status):
     
     display.blit(xy,[5,h-15])
     display.blit(hitTxt,[w-30,h-15]) """
+    collsionDetector(balls)
 
     if(i < ball1.totalMilliseconds):
         X,Y,XR,YR = ball1.whereBallGo(ball1.totalVelocity[i])
