@@ -136,6 +136,7 @@ clock = p.time.Clock()
 ball1 = Ball(200,200, 3, 270)
 ball2 = Ball(250,200, 3, 90)
 ball3 = Ball(300,200, 4, 90)
+balls = {ball1,ball2,ball3}
 i=0
 j=0
 k=0
