@@ -97,6 +97,22 @@ def collsionDetector(balls):
     for ball in balls:
         if any(ball != ball1 and (m.sqrt((ball.x-ball1.x)**2+(ball.y-ball1.y)**2)<=10+10) for ball1 in balls):
             print("COLLISION DETECTION")
+            
+def get_var_name(var):
+    for name, value in globals().items():
+        if value is var:
+            return name
+
+def movement(ball,counter):
+    if(counter < ball.totalMilliseconds):
+        X,Y,XR,YR = ball.whereBallGo(ball.totalVelocity[counter])
+        #print("X:" + str(X) + " | Y:" + str(Y) + " | XR:" + str(XR) + " | YR:" + str(YR))
+        ball.move(X,Y,XR,YR)
+        counter += 1
+    elif (ball.moving):
+        ball.moving = False
+        print(f"The {get_var_name(ball)} has Stopped!")
+    return counter
 grav = 1
 friction = 1
 
@@ -139,56 +155,11 @@ while(status):
         if(event.type==QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
             status = False
     
-    """ p.draw.circle(display,(0,0,255),[x,y],radius,0)
-
-    #Still needs to be fixed
-    ### MAIN TEST FOR COLLISION ###
-    if(m.sqrt((mx-x)**2+(my-y)**2)<=radius+cursorRadius):
-        hit=True
-        angle = ((m.atan(((mx%x)-x)**2/(my%y-y)**2)+(180/m.pi)) % 360)*4
-        print(angle)
-        c1_newpos_x = m.sin(angle) * (radius + cursorRadius) + x
-        c1_newpos_y = m.cos(angle) * (radius + cursorRadius) + y
-        p.draw.circle(display,(255,255,255),[c1_newpos_x,c1_newpos_y],cursorRadius,0)
-    else:
-        p.draw.circle(display,(255,255,255),p.mouse.get_pos(),cursorRadius,0)
-        hit=False
-    xy=font.render(str(p.mouse.get_pos()),True,(255,255,255))
-    hitTxt=font.render(str(hit),True,(255,255,255)) 
-
-    p.draw.line(display,(255,255,255),(0,400),(1000,400),10)
-    
-    display.blit(xy,[5,h-15])
-    display.blit(hitTxt,[w-30,h-15]) """
     collsionDetector(balls)
 
-    if(i < ball1.totalMilliseconds):
-        X,Y,XR,YR = ball1.whereBallGo(ball1.totalVelocity[i])
-        #print("X:" + str(X) + " | Y:" + str(Y) + " | XR:" + str(XR) + " | YR:" + str(YR))
-        ball1.move(X,Y,XR,YR)
-        i += 1
-    elif (ball1.moving):
-        ball1.moving = False
-        print("Ball1 Stopped!")
-
-    if(j < ball2.totalMilliseconds):
-        X,Y,XR,YR = ball2.whereBallGo(ball2.totalVelocity[j])
-        #print("X:" + str(X) + " | Y:" + str(Y) + " | XR:" + str(XR) + " | YR:" + str(YR))
-        ball2.move(X,Y,XR,YR)
-        j += 1
-    elif (ball2.moving):
-        ball2.moving = False
-        print("Ball2 Stopped!")
-
-
-    if(k < ball3.totalMilliseconds):
-        X,Y,XR,YR = ball3.whereBallGo(ball3.totalVelocity[k])
-        #print("X:" + str(X) + " | Y:" + str(Y) + " | XR:" + str(XR) + " | YR:" + str(YR)
-        ball3.move(X,Y,XR,YR)
-        k += 1
-    elif (ball3.moving):
-        ball3.moving = False
-        print("Ball3 Stopped!")
+    i = movement(ball1,i)
+    j = movement(ball2,j)
+    k = movement(ball3,k)
     
     ball1.draw()
     ball2.draw()
