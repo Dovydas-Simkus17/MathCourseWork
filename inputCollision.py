@@ -99,38 +99,9 @@ def collsionDetector(balls):
         if any(ball != ball1 and (m.sqrt((ball.x-ball1.x)**2+(ball.y-ball1.y)**2)<=10+10) for ball1 in balls):
             print("COLLISION DETECTION")
 
-def inputDetection(balls,user_text):
-    # color_active stores color(lightskyblue3) which 
-    # gets active when input box is clicked by user 
-    color_active = p.Color('lightskyblue3') 
-    
-    # color_passive store color(chartreuse4) which is 
-    # color of input box. 
-    color_passive = p.Color('chartreuse4') 
-    color = color_passive 
-    active = False
+def inputDetection(balls,user_text,active):
     for ball in balls:
         if all((ball.moving == False and ball1.moving == False) for ball1 in balls):
-            print("MOVEMENT DETECTION")
-
-            if event.type == p.MOUSEBUTTONDOWN: 
-                if input_rect.collidepoint(event.pos): 
-                    active = True
-                else: 
-                    active = False
-  
-            if event.type == p.KEYDOWN: 
-    
-                # Check for backspace 
-                if event.key == p.K_BACKSPACE: 
-    
-                    # get text input from 0 to -1 i.e. end. 
-                    user_text = user_text[:-1] 
-    
-                # Unicode standard is used for string 
-                # formation 
-                else: 
-                    user_text += event.unicode
     
             if active: 
                 color = color_active 
@@ -149,6 +120,12 @@ def inputDetection(balls,user_text):
             # set width of textfield so that text cannot get 
             # outside of user's text input 
             input_rect.w = max(100, text_surface.get_width()+10) 
+        
+        else:
+            #Do nothing
+            i=1
+
+    return user_text,active
 
 def get_var_name(var):
     for name, value in globals().items():
@@ -171,7 +148,7 @@ friction = 1
 w,h=500,500
 display = p.display.set_mode([w,h])
 p.display.set_caption("Collision Test")
-font = p.font.SysFont("calibri", 12)
+font = p.font.SysFont("calibri", 20)
 
 x,y=150,150
 radius=50
@@ -183,21 +160,30 @@ status = True
 #fps stuff
 fps = 60
 clock = p.time.Clock()
+forc = 0
 
 #Ball 
-ball1 = Ball(200,200, 0, 0)
-ball2 = Ball(250,200, 2, 90)
-ball3 = Ball(300,200, 4, 90)
+ball1 = Ball(200,200, forc, 0)
+ball2 = Ball(250,200, 0, 90)
+ball3 = Ball(300,200, 0, 90)
 balls = {ball1,ball2,ball3}
 
-""" ang = int(input(print("Angle to hit?\n")))
-forc = int(input(print("Force to hit?\n"))) """
+#ang = int(input(print("Angle to hit?\n")))
+
 ball1.ballHit()
 ball2.ballHit()
 ball3.ballHit()
 
+#Input Related Variables
 input_rect = p.Rect(100, 100, 140, 32)
-user_text = ''
+user_text = '0'
+
+#Colour of Text Box
+color_active = p.Color('red') 
+color_passive = p.Color('blue')
+color = color_passive 
+active = False
+
 while(status):
     display.fill([0,0,0])
     mx,my=p.mouse.get_pos()
@@ -205,7 +191,26 @@ while(status):
     for event in p.event.get():
         if(event.type==QUIT or (event.type==KEYDOWN and event.key==K_ESCAPE)):
             status = False
-    inputDetection(balls,user_text)
+        if event.type == p.MOUSEBUTTONDOWN: 
+                if input_rect.collidepoint(event.pos): 
+                    active = True
+                else: 
+                    active = False
+
+        if event.type == p.KEYDOWN:
+            if active:
+                if event.key == p.K_RETURN:
+                    print(user_text)
+                    forc = int(user_text)
+                    print(forc)
+                    user_text = '0'
+                elif event.key == p.K_BACKSPACE:
+                    user_text = user_text[:-1]
+                else:
+                    user_text += event.unicode
+
+    user_text, active = inputDetection(balls,user_text,active)
+    ball1.ballHit()
     collsionDetector(balls)
 
     movement(ball1)
@@ -216,6 +221,8 @@ while(status):
     ball2.draw()
     ball3.draw()
     
+
+
     p.display.update()
     clock.tick(fps)
 
