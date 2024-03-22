@@ -122,8 +122,7 @@ def inputDetection(balls,user_text,active):
             input_rect.w = max(100, text_surface.get_width()+10) 
         
         else:
-            #Do nothing
-            i=1
+            display.fill([0,0,0])
 
     return user_text,active
 
