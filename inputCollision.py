@@ -138,6 +138,7 @@ def movement(ball):
         #print("X:" + str(X) + " | Y:" + str(Y) + " | XR:" + str(XR) + " | YR:" + str(YR))
         ball.move(X,Y,XR,YR)
         ball.index += 1
+        ball.moving = True
     elif (ball.moving):
         ball.moving = False
         print(f"The {get_var_name(ball)} has Stopped!")
