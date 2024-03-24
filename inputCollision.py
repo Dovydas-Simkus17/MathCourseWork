@@ -160,7 +160,7 @@ status = True
 #fps stuff
 fps = 60
 clock = p.time.Clock()
-forc = 0
+forc = 1
 
 #Ball 
 ball1 = Ball(200,200, forc, 0)
@@ -176,7 +176,7 @@ ball3.ballHit()
 
 #Input Related Variables
 input_rect = p.Rect(100, 100, 140, 32)
-user_text = '0'
+user_text = ''
 
 #Colour of Text Box
 color_active = p.Color('red') 
@@ -203,7 +203,9 @@ while(status):
                     print(user_text)
                     forc = int(user_text)
                     print(forc)
-                    user_text = '0'
+                    user_text = ''
+                    ball1.hitForce = forc
+
                 elif event.key == p.K_BACKSPACE:
                     user_text = user_text[:-1]
                 else:
