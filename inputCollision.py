@@ -178,7 +178,7 @@ forc = 1
 ball1 = Ball(200,200, forc, 0)
 ball2 = Ball(250,200, 0, 90)
 ball3 = Ball(300,200, 0, 90)
-balls = {ball1,ball2,ball3}
+balls = [ball1,ball2,ball3]
 
 #ang = int(input(print("Angle to hit?\n")))
 
