@@ -96,20 +96,19 @@ class Ball():
     
 def collsionDetector(balls):
     for ballA in balls:
-        if any(ballA != ballB and (m.sqrt((ballA.x-ballB.x)**2+(ballA.y-ballB.y)**2)<=10+10) for ballB in balls):
-            for ballB in balls:
-                if any(ballA != ballB and (m.sqrt((ballA.x-ballB.x)**2+(ballA.y-ballB.y)**2)<=10+10) for counter in balls):
-                    print(f"The {get_var_name(ballA)} has collided with {get_var_name(ballB)}")
+        for ballB in balls:
+            if any(ballA != ballB and (m.sqrt((ballA.x-ballB.x)**2+(ballA.y-ballB.y)**2)<=10+10) for counter in balls):
+                print(f"The {get_var_name(ballA)} has collided with {get_var_name(ballB)}")
 
-                    ballA.angleHit = ballA.angleHit * (-1)
-                    ballA.hitForce = (ballA.hitForce + ballB.hitForce) / 1.5
-                    ballB.hitForce = (ballA.hitForce + ballB.hitForce) / 1.5
-                    ballA.ballHit()
-                    movement(ballA)
-                    ballB.ballHit()
-                    movement(ballB)
-                    for i in range(len(balls)):
-                        print(balls[i].hitForce)
+                ballA.angleHit = ballA.angleHit * (-1)
+                ballA.hitForce = (ballA.hitForce + ballB.hitForce) / 1.5
+                ballB.hitForce = (ballA.hitForce + ballB.hitForce) / 1.5
+                ballA.ballHit()
+                movement(ballA)
+                ballB.ballHit()
+                movement(ballB)
+                for i in range(len(balls)):
+                    print(balls[i].hitForce)
 
 def inputDetection(balls,user_text,active):
     for ball in balls:
