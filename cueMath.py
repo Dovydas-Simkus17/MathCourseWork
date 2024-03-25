@@ -6,25 +6,6 @@ from colour import *
 
 p.init()
 
-grav = 1
-friction = 1
-class Ball():
-    def __init__(self):
-        self.x = 200
-        self.y = 200
-        self.newX= 300
-        self.newY = 300
-        self.vel = 0
-        self.accel = 1
-    def draw(self):
-        p.draw.circle(display,(255,255,255),(int(self.x),int(self.y)),10)
-    def move(self):
-        self.vel += self.accel 
-        self.y += self.vel
-        self.x += self.vel
-        print(self.vel)
-        if (self.x >= self.newX and self.y >= self.newY):
-            self.vel = -self.vel
 w,h=500,500
 display = p.display.set_mode([w,h])
 p.display.set_caption("Collision Test")
