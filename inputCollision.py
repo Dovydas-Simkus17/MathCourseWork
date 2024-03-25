@@ -216,6 +216,7 @@ while(status):
                     forc = int(user_text)
                     print(forc)
                     user_text = ''
+                    ball1.index = 0
                     ball1.hitForce = forc
 
                 elif event.key == p.K_BACKSPACE:
