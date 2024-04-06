@@ -60,7 +60,7 @@ def draw_table():
 
 #Hole Information
 hole_radius = 30
-hole_positions = [(50, 50), (500, 30), (950, 50), (50, 550), (500, 570), (950, 550)]
+hole_positions = [(50, 50), (500, 50), (950, 50), (50, 550), (500, 550), (950, 550)]
 #Loading Images
 cue_ball_image=pygame.image.load("images\cue_ball.png").convert_alpha()
 cue_stick_image=pygame.image.load("images\cue_stick.png").convert_alpha()
@@ -85,6 +85,30 @@ def create_ball(radius,pos):
 #Cue Ball
 pos=(750,windowHeight/2)
 cue_ball=create_ball(ball_diameter/2,pos)
+
+#Balls
+ball1 = create_ball(ball_diameter/2,(350,300))
+
+ball2 = create_ball(ball_diameter/2,(320,282))
+ball3 = create_ball(ball_diameter/2,(320,318))
+
+ball4 = create_ball(ball_diameter/2,(290,264))
+ball5 = create_ball(ball_diameter/2,(290,300))
+ball6 = create_ball(ball_diameter/2,(290,336))
+
+ball7 = create_ball(ball_diameter/2,(260,246))
+ball8 = create_ball(ball_diameter/2,(260,282))
+ball9 = create_ball(ball_diameter/2,(260,318))
+ball10 = create_ball(ball_diameter/2,(260,354))
+
+ball11 = create_ball(ball_diameter/2,(230,228))
+ball12 = create_ball(ball_diameter/2,(230,264))
+ball13 = create_ball(ball_diameter/2,(230,300))
+ball14 = create_ball(ball_diameter/2,(230,336))
+ball15 = create_ball(ball_diameter/2,(230,372))
+
+balls = {ball1,ball2,ball3,ball4,ball5,ball6,ball7,ball8,ball9,ball10,ball11,ball12,ball13,ball14,ball15}
+
 
 #Create Pool Table Cushions
 pool_cushions=[[(60,40),(62,35),(471,40),(469,35)],
@@ -141,6 +165,10 @@ while gameRun:
     
     #Cue Ball Draw
     window.blit(cue_ball_image,(cue_ball.body.position[0]-ball_diameter/2,cue_ball.body.position[1]-ball_diameter/2))
+
+    #Balls draw
+    for ball in balls:
+        window.blit(cue_ball_image,(ball.body.position[0]-ball_diameter/2,ball.body.position[1]-ball_diameter/2))
     
     #Checking If All Balls Have Stopped Moving
     taking_shot=True
