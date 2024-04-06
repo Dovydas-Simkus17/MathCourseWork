@@ -55,11 +55,12 @@ def draw_table():
     pygame.draw.rect(window, WALL_COLOR, (0, 560, TABLE_WIDTH + WALL_WIDTH, WALL_WIDTH))
 
     # Draw holes
-    hole_radius = 30
-    hole_positions = [(30, 30), (500, 30), (970, 30), (30, 570), (500, 570), (970, 570)]
     for pos in hole_positions:
         pygame.draw.circle(window, HOLE_COLOR, pos, hole_radius)
 
+#Hole Information
+hole_radius = 30
+hole_positions = [(50, 50), (500, 30), (950, 50), (50, 550), (500, 570), (950, 550)]
 #Loading Images
 cue_ball_image=pygame.image.load("images\cue_ball.png").convert_alpha()
 cue_stick_image=pygame.image.load("images\cue_stick.png").convert_alpha()
@@ -168,7 +169,17 @@ while gameRun:
         y_impulse=math.sin(math.radians(cue_stick_angle))
         cue_ball.body.apply_impulse_at_local_point((force*-x_impulse,force*y_impulse))
         force=0
-    
+    #Pots
+    for ball in balls:
+        ballRemove = False
+        ballPos = ball.body.position
+        for pos in hole_positions:
+            if any((math.sqrt((ballPos[0]-pos[0])**2+(ballPos[1]-pos[1])**2)<=ball_diameter) for counter in balls):
+                balls.remove(ball)
+                ballRemove = True
+        if ballRemove == True:
+            break
+            
     #Event Handler
     for event in pygame.event.get():
         if event.type==pygame.MOUSEBUTTONDOWN and taking_shot==True:
