@@ -80,7 +80,7 @@ def create_ball(radius,pos):
     pivot.max_force=500
     
     space.add(body,shape,pivot)
-    return shape
+    return shape,pivot
 
 #Cue Ball
 pos=(750,windowHeight/2)
@@ -148,7 +148,7 @@ class Cue_stick():
                      (self.rect.centerx-self.image.get_width()/2,
                      self.rect.centery-self.image.get_height()/2))
     
-cue_stick=Cue_stick(cue_ball.body.position)
+cue_stick=Cue_stick(cue_ball[0].body.position)
 
 #Game Running Loop
 gameRun=True
@@ -164,24 +164,24 @@ while gameRun:
     draw_table()
     
     #Cue Ball Draw
-    window.blit(cue_ball_image,(cue_ball.body.position[0]-ball_diameter/2,cue_ball.body.position[1]-ball_diameter/2))
+    window.blit(cue_ball_image,(cue_ball[0].body.position[0]-ball_diameter/2,cue_ball[0].body.position[1]-ball_diameter/2))
 
     #Balls draw
     for ball in balls:
-        window.blit(cue_ball_image,(ball.body.position[0]-ball_diameter/2,ball.body.position[1]-ball_diameter/2))
+        window.blit(cue_ball_image,(ball[0].body.position[0]-ball_diameter/2,ball[0].body.position[1]-ball_diameter/2))
     
     #Checking If All Balls Have Stopped Moving
     taking_shot=True
-    if int(cue_ball.body.velocity[0])!=0 or int(cue_ball.body.velocity[1])!=0:
+    if int(cue_ball[0].body.velocity[0])!=0 or int(cue_ball[0].body.velocity[1])!=0:
         taking_shot=False
     
     #Cue Stick Draw / Calculating The Cue Stick Angle
     if taking_shot==True:
         mouse_pos=pygame.mouse.get_pos()
-        cue_stick.rect.center=cue_ball.body.position
-        x_distance=cue_ball.body.position[0]-mouse_pos[0]
+        cue_stick.rect.center=cue_ball[0].body.position
+        x_distance=cue_ball[0].body.position[0]-mouse_pos[0]
         #Y is negative as pygame y coordinates increase down the screen
-        y_distance=-(cue_ball.body.position[1]-mouse_pos[1])
+        y_distance=-(cue_ball[0].body.position[1]-mouse_pos[1])
         cue_stick_angle=math.degrees(math.atan2(y_distance,x_distance))
         cue_stick.update(cue_stick_angle)
         cue_stick.draw(window)
@@ -195,19 +195,21 @@ while gameRun:
     elif power_up==False and taking_shot==True:
         x_impulse=math.cos(math.radians(cue_stick_angle))
         y_impulse=math.sin(math.radians(cue_stick_angle))
-        cue_ball.body.apply_impulse_at_local_point((force*-x_impulse,force*y_impulse))
+        cue_ball[0].body.apply_impulse_at_local_point((force*-x_impulse,force*y_impulse))
         force=0
     #Pots
     balls_delete = []
     for ball in balls:
         ballRemove = False
-        ballPos = ball.body.position
+        ballPos = ball[0].body.position
         for pos in hole_positions:
             if any((math.sqrt((ballPos[0]-pos[0])**2+(ballPos[1]-pos[1])**2)<=ball_diameter) for counter in balls):
                 balls_delete.append(ball)
     
     for ball in balls_delete:
-        space.remove(ball, ball.body)
+        if ball == cue_ball:
+            print("Game Over")
+        space.remove(ball[0], ball[0].body,ball[1])
         balls.remove(ball)
             
     #Event Handler
