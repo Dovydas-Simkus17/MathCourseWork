@@ -198,15 +198,17 @@ while gameRun:
         cue_ball.body.apply_impulse_at_local_point((force*-x_impulse,force*y_impulse))
         force=0
     #Pots
+    balls_delete = []
     for ball in balls:
         ballRemove = False
         ballPos = ball.body.position
         for pos in hole_positions:
             if any((math.sqrt((ballPos[0]-pos[0])**2+(ballPos[1]-pos[1])**2)<=ball_diameter) for counter in balls):
-                balls.remove(ball)
-                ballRemove = True
-        if ballRemove == True:
-            break
+                balls_delete.append(ball)
+    
+    for ball in balls_delete:
+        space.remove(ball, ball.body)
+        balls.remove(ball)
             
     #Event Handler
     for event in pygame.event.get():
