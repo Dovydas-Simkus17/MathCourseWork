@@ -172,8 +172,9 @@ while gameRun:
     
     #Checking If All Balls Have Stopped Moving
     taking_shot=True
-    if int(cue_ball[0].body.velocity[0])!=0 or int(cue_ball[0].body.velocity[1])!=0:
-        taking_shot=False
+    for ball in balls:
+        if int(ball[0].body.velocity[0])!=0 or int(ball[0].body.velocity[1])!=0:
+            taking_shot=False
     
     #Cue Stick Draw / Calculating The Cue Stick Angle
     if taking_shot==True:
