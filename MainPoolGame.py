@@ -136,6 +136,14 @@ TABLE_COLOR = (0, 100, 0)  #Green
 WALL_COLOR = (139, 69, 19) #Brown
 HOLE_COLOR = (0,0,0)       #Black
 
+# Create Player
+player_name = input("Enter your name: ")
+player = Player(player_name)
+
+# Font initialization
+pygame.font.init()
+font = pygame.font.Font(None, 36)
+
 #Hole Information
 hole_radius = 30
 hole_positions = [(50, 50), (500, 50), (950, 50), (50, 550), (500, 550), (950, 550)]
