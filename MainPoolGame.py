@@ -218,9 +218,9 @@ while gameRun:
                                    int(ball_diameter / 2))
                 draw_stripes(window, (int(ball[0].body.position[0]), int(ball[0].body.position[1])),
                              int(ball_diameter / 2), ball[3])
-            else:
-                pygame.draw.circle(window, ball[2], (int(ball[0].body.position[0]), int(ball[0].body.position[1])),
-                                   int(ball_diameter / 2))
+        else:
+            pygame.draw.circle(window, ball[2], (int(ball[0].body.position[0]), int(ball[0].body.position[1])),
+                               int(ball_diameter / 2))
     
     # Draw the score
     draw_score()
