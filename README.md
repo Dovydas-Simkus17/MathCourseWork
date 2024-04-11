@@ -1,6 +1,6 @@
 # MathCourseWork
 
-#Members:
+Members:
 Dovydas Simkus    - 2235289
 Bogdan Sergijenko - 2235285
 Ostin Mathias     - 2015862
